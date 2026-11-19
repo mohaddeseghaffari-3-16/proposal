@@ -1,0 +1,65 @@
+# Experiment config for MosMed_RQ_clean.py
+# Hyper-parameters are copied verbatim from the original script.
+# Only the path entries below were changed (Kaggle paths -> repository-relative paths).
+# Any path can also be overridden from the command line, e.g. --frames_dir /my/data/frames
+TRAIN:
+  train_batch_size: 16
+  lr: 0.0003
+
+  valid_batch_size: 32
+
+  image_size: [224,224]
+
+  min_epochs: 70
+  max_epochs: 200
+  patience: 20
+
+  device: [0]
+
+  model_save_path: ./save_model
+  model_save_filename: medseg
+
+MODEL:
+  bert_type: ./lib/BiomedVLP-CXR-BERT-specialized
+  vision_type: ./lib/convnext-tiny-224
+  project_dim: 768
+
+DATA:
+  frames_dir: "./data/MosMedData/frames"
+  masks_dir: "./data/MosMedData/masks"
+  train_csv: "./splits/mosmed/Train_resplit_by_group.csv"
+  valid_csv: "./splits/mosmed/Val_resplit_by_group.csv"
+
+PILOT:
+  output_dir: "./outputs/MosMed_RQ"
+  seed: 27
+  data_seed: 27
+  num_queries: 5
+  min_component_area: 15
+  connectivity: 2
+  train_samples: 2000
+  valid_samples: 400
+  pilot_train_multi_region_samples: 40
+  pilot_valid_multi_region_samples: 10
+  epochs: 70
+  cosine_T_max: 70
+  num_workers: 4
+  grad_clip: 1.0
+  d_q: 768
+  d: 768
+  d_v: 768
+  d_m: 256
+  lambda_bce: 1.0
+  lambda_dice: 1.0
+  lambda_u: 1.5
+  lambda_unmatched_fg: 0.0
+  lambda_div: 0.0
+  lambda_foreign: 0.0
+  lambda_seg: 1.0
+  mask_pos_enc: true
+  eps: 1.0e-6
+  vis_per_category: 3
+  mask_binarize_thr: 0.5
+  collapse_iou_thr: 0.5
+  cover_thr: 0.5
+  dup_thr: 0.5
